@@ -330,5 +330,336 @@ bananatruck:truck driving slowly because heaavily loaded
 orangetruck:truck driving slowly because heaavily loaded
 23:sportscar driving
 
+BAB 5
+    
+   	 ENCAPSULATION
+   
+Enkapsulasi adalah pembungkus, maksud pembungkus disini adalah untuk menjaga suatu proses program agar tidak dapat diakses secara sembarangan
+atau di intervensi oleh program lain. Konsep enkapsulasi sangat penting dilakukan untuk menjaga kebutuhan program agar dapat diakses sewaktu-waktu
+,sekaligus menjaga program tersebut.
+Begitulah konsep kerja dari enkapsulasi, dia akan melindungi sebuah program dari akses ataupun intervensi dari program lain yang mempengaruhinya.
+Hal ini sangat menjaga keutuhan program yang telah dibuat dengan konsep dan rencana yang sudah ditentukan dari awal.
+Enkapsulasi menciptakan abstraksi untuk desain kelas. Jika Anda ingin melindungi beberapa anggota dari kelas dasar maka timbullah situasi 
+	enkapsulasi. Dalam konsep ini ada tiga kata kunci yang digunakan. Konsep hak akses ini biasa di sebut Access Modifier.
+Access Modifier terdiri dari private, protected, dan public.
+Private memberikan hak akses hanya kepada anggota class tersebut untuk menggunakan dan/atau mengubah nilai dari property atau method tersebut.
+Protected memberikan hak akses kepada anggota class nya dan anggota class hasil inheritance (penurunan sifat) dari class tersebut.
+Public memberikan hak akses kepada property dan method agar dapat digunakan diluar class tersebut.
+
+
+
+    "class robot(object):\n",
+    "    def __init__(self):\n",
+    "        self.__version=22\n",
+    "    def getversion(self):\n",
+    "        print(self.__version)\n",
+    "    def setversion(self,version):\n",
+    "        self.__version=version\n",
+    "obj=robot()\n",
+    "obj.getversion()\n",
+    "obj.setversion(23)\n",
+    "obj.getversion()\n",
+    "#print(obj.__version) salah karena tdk ada pemanggilan classs\n",
+    "print(obj._robot__version)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "This is a public method\n",
+      "This is a private method\n",
+      "This is another private method\n"
+     ]
+    }
+   ],
+   "source": [
+    "class A(object):\n",
+    "    #public method\n",
+    "    def myPublicMethod(self):\n",
+    "        return \"This is a public method\"\n",
+    "    #private method with single underscore\n",
+    "    def _myPrivateMethod(self):\n",
+    "        return \"This is a private method\"\n",
+    "    #private method with double underscore\n",
+    "    def __myAnotherPrivateMethod(self):\n",
+    "        return \"This is another private method\"\n",
+    "#nama objek\n",
+    "obj1 = A()\n",
+    "#we can access the public mehod which is cool\n",
+    "print(obj1.myPublicMethod())\n",
+    "#Note that we can also access the private method from outside\n",
+    "print(obj1._myPrivateMethod())\n",
+    "print(obj1._A__myAnotherPrivateMethod())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "driving. maxspeed : 200\n",
+      "driving. maxspeed : 10\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Car:\n",
+    " \n",
+    "    __maxspeed = 0\n",
+    "    __name = \"\"\n",
+    " \n",
+    "    def __init__(self):\n",
+    "        self.__maxspeed = 200\n",
+    "        self.__name = \"Supercar\"\n",
+    " \n",
+    "    def drive(self):\n",
+    "        print (\"driving. maxspeed : \" + str(self.__maxspeed))\n",
+    " \n",
+    "redcar = Car()\n",
+    "redcar.drive()\n",
+    "redcar.__maxspeed = 10  # will not change variable because its private\n",
+    "redcar._Car__maxspeed=10 #cara mengubah variabel private\n",
+    "redcar.drive()\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "updating software\n",
+      "driving\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Car:\n",
+    " \n",
+    "    def __init__(self):\n",
+    "        self.__updateSoftware()\n",
+    "\n",
+    "    def drive(self):\n",
+    "        print ('driving')\n",
+    "\n",
+    "    def __updateSoftware(self):\n",
+    "        print ('updating software')\n",
+    " \n",
+    "redcar = Car()\n",
+    "redcar.drive()\n",
+    "#redcar.__updateSoftware()  not accesible from object."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Nama: Segitiga Sama Sisi\n",
+      "Panjang: 5\n",
+      "Sisi: 75\n",
+      "Nama: Persegi Panjang\n",
+      "Panjang: 10\n",
+      "Lebar: 15\n",
+      "Nama: Lingkaran besar\n",
+      "Jari-jari: 21\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Shape(object):\n",
+    "    __nama = 0\n",
+    "    def getNama(self):\n",
+    "        print (\"Nama:\",self.__nama)\n",
+    "    def setNama(self,nama):\n",
+    "        self.__nama = nama\n",
+    "    \n",
+    "class Rectangle(Shape):\n",
+    "    __panjang = 0\n",
+    "    __lebar = 0\n",
+    "    def getPanjangdanLebar(self):\n",
+    "        print (\"Panjang:\",self.__panjang)\n",
+    "        print (\"Lebar:\",self.__lebar)\n",
+    "    def setPanjangdanLebar(self,panjang,lebar):\n",
+    "        self.__panjang = panjang\n",
+    "        self.__lebar = lebar\n",
+    "\n",
+    "class Circle(Shape):\n",
+    "    __jari2 = 0\n",
+    "    def getJari2(self):\n",
+    "        print (\"Jari-jari:\",self.__jari2)\n",
+    "    def setJari2(self,jari2):\n",
+    "        self.__jari2 = jari2\n",
+    "\n",
+    "class Triangle(Shape):\n",
+    "    __panjang = 0\n",
+    "    __sisi = 0\n",
+    "    def getPanjangdanSisi(self):\n",
+    "        print (\"Panjang:\",self.__panjang)\n",
+    "        print (\"Sisi:\",self.__sisi)\n",
+    "    def setPanjangdanSisi(self,panjang,sisi):\n",
+    "        self.__panjang = panjang\n",
+    "        self.__sisi = sisi\n",
+    "\n",
+    "Segitiga = Triangle()\n",
+    "Segitiga.setNama (\"Segitiga Sama Sisi\")\n",
+    "Segitiga.setPanjangdanSisi(5,75)\n",
+    "Segitiga.getNama ()\n",
+    "Segitiga.getPanjangdanSisi ()\n",
+    "\n",
+    "Persegipanjang = Rectangle ()\n",
+    "Persegipanjang.setNama (\"Persegi Panjang\")\n",
+    "Persegipanjang.setPanjangdanLebar (10,15)\n",
+    "Persegipanjang.getNama ()\n",
+    "Persegipanjang.getPanjangdanLebar ()\n",
+    "\n",
+    "Lingkaran = Circle ()\n",
+    "Lingkaran.setNama (\"Lingkaran besar\")\n",
+    "Lingkaran.setJari2 (21)\n",
+    "Lingkaran.getNama ()\n",
+    "Lingkaran.getJari2 ()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(58, 10)\n",
+      "(46, -4)\n"
+     ]
+    }
+   ],
+   "source": [
+    "class bilangan:\n",
+    "    def __init__(self,a,b):\n",
+    "        self.a=a\n",
+    "        self.b=b\n",
+    "    def __add__(self,other):\n",
+    "        return self.a+other.a,self.b+other.b\n",
+    "    def __sub__(self,other):\n",
+    "        return self.a-other.a,self.b-other.b\n",
+    "    def __str__(self):\n",
+    "        return self.a,self.b\n",
+    "o1=bilangan(52,3)\n",
+    "o2=bilangan(6,7)\n",
+    "o3=o1+o2\n",
+    "o4=o1-o2\n",
+    "print (o3)\n",
+    "print (o4)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+
+
+
+BAB 6
+	
+	OPERATOR OVERLOADING
+	
+Overloading merupakan salah satu konsep dalam pemrogramaan berorientasi objek dimana dalam suatu class terdapat method dengan nama yang sama namun tetapi memiliki berbagai fungsi yang berbeda, tergantung dari parameter yang digunakan.
+
+Contoh penggunaan overloading sederhana dalam python.
+
+class Vektor:
+    'Membuat kode program dengan menggunakan teknik overloading'
+    'Wawan H Nur 20 mei 2015'
+
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def __str__(self):
+        return 'Vektor (%d, %d)' % (self.a, self.b)
+
+    def __add__(self, other):
+        return Vektor(self.a + other.a, self.b + other.b)
+
+v1 = Vektor (5,4)
+v2 = Vektor (7, -2)
+
+print v1
+print v2
+
+print v1 + v2
+	
+
+class Parent:
+    def myMethod(self):
+        print 'Memanggil method parent'
+
+class Child(Parent):
+    def myMethod(self):
+        print 'Memanggil method child'
+
+c = Child()
+c.myMethod()
+
+c = Parent()
+c.myMethod()
+
+>>> class Order:
+...     def __init__(self, cart, customer):
+...         self.cart = list(cart)
+...         self.customer = customer
+...
+...     def __len__(self):
+...         return len(self.cart)
+...
+>>> order = Order(['banana', 'apple', 'mango'], 'Real Python')
+>>> len(order)
+
 
 
